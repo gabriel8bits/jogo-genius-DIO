@@ -19,13 +19,13 @@ let ordemSorteada = () => {
     ordemClick = [];
 
     for (let i in ordem) {
-        let elementoCores = elementoCriador(ordem[i]);
+        let elementoCores = elementeCriador(ordem[i]);
         corSelecionada(elementoCores, Number(i) + 1);
     }
 }
 // mostra cor selecinada com um tom mais claro
 let corSelecionada = (element, number) => {
-    time = time * 500;
+    number = number * 500;
     setTimeout(() => {
         element.classList.add('selecionada');
     }, number - 250);
@@ -51,13 +51,13 @@ let checarOrdem = () => {
 
 // função de click
 let click = (color) => {
-    ordemClick[ordemClick.length] = coclor;
-    elementeCriador(color),classList.add('selecionada');
+    ordemClick[ordemClick.length] = color;
+    elementeCriador(color).classList.add('selecionada');
 
     setTimeout(() => {
         elementeCriador(color).classList.remove('selecionada');
         checarOrdem();
-    })
+    },250)
 }
 
 // fução de retorno da cor
@@ -82,7 +82,7 @@ let proximoNivel = () => {
 //função de game over
 let lose = () => {
     alert(`Pontuação: ${score}!\nGame Over!\n Clique em OK para reiniciar o jogo`);
-    order = [];
+    ordem= [];
     ordemClick = [];
 
     playGame();
@@ -90,13 +90,18 @@ let lose = () => {
 
 // função de inicio do jogo
 let playGame = () => {
-    score = 0;
     alert('Bem vindo ao Genius!')
+    score = 0;
+    
 
     proximoNivel();
 }
 
-blue.addEventListener('click', click(1));
-yellow.addEventListener('click', click(0));
-red.addEventListener('click', click(3));
-green.addEventListener('click', click(2));
+//eventos de clique para as cores
+green.onclick = () => click(2);
+red.onclick = () => click(3);
+yellow.onclick = () => click(0);
+blue.onclick = () => click(1);
+
+//inicio do jogo
+playGame();
